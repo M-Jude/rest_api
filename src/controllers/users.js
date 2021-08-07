@@ -15,7 +15,7 @@ exports.UserController = {
             const response = await UserModel.create(req.body);
             return res.json(response);
         } catch(err){
-            // console.log(err)
+            console.log(err)
             throw new Error("Failed to post users");
         }
     },
