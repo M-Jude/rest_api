@@ -1,5 +1,5 @@
 const express = require('express')
-const mongoose = require('mongoose')
+const mongo = require('./src/models/mongo');
 const jwt = require('jsonwebtoken')
 const cors = require('cors')
 require('dotenv').config()
@@ -21,11 +21,19 @@ app.use((req, res, next) => {
     }
 });
 
-mongoose.connect('mongodb://127.0.0.1:27017/test', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false
-})
+module.exports = async (arg1, arg2, arg3) => {
+
+    await mongo().then(async mongoose => {
+        try{
+            console.log('Connected to mongo!!');
+            await command.execute(client, message, args);
+        }
+        finally{
+            mongoose.connection.close();
+        }
+    });
+
+};
 
 const PORT = process.env.PORT || 3000;
 
