@@ -7,11 +7,22 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect('mongodb://127.0.0.1:27017/test', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false
-})
+(async () => {
+    try {
+        await mongoose.connect('mongodb://localhost:27017/test', {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            useFindAndModify: false
+        })
+    } catch (err) {
+      console.log('error: ' + err)
+    }
+  })()
+// mongoose.connect('mongodb://127.0.0.1:27017/test', {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//     useFindAndModify: false
+// })
 
 const PORT = process.env.PORT || 3000;
 
