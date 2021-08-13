@@ -1,5 +1,5 @@
 const express = require('express')
-const mongo = require('./src/models/mongo');
+const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken')
 const cors = require('cors')
 require('dotenv').config()
@@ -21,19 +21,17 @@ app.use((req, res, next) => {
     }
 });
 
-module.exports = async (arg1, arg2, arg3) => {
-
-    await mongo().then(async mongoose => {
-        try{
-            console.log('Connected to mongo!!');
-            await command.execute(client, message, args);
-        }
-        finally{
-            mongoose.connection.close();
-        }
-    });
-
-};
+(async () => {
+    try {
+        await mongoose.connect(process.env.MONGOPATH, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            useFindAndModify: false
+        })
+    } catch (err) {
+      console.log('error: ' + err)
+    }
+  })()
 
 const PORT = process.env.PORT || 3000;
 
